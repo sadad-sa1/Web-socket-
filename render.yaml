@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: us-market-data-websocket
+    runtime: node
+    plan: free
+    region: ohio
+    branch: main
+    buildCommand: npm install --omit=dev
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: ALPACA_API_KEY_ID
+        sync: false
+      - key: ALPACA_API_SECRET_KEY
+        sync: false
+      - key: ALPACA_FEED
+        value: iex
+      - key: ALPACA_TEST_MODE
+        value: "false"
+      - key: DEFAULT_SYMBOLS
+        value: AAPL,NVDA,TSLA,AMD,MSFT
+      - key: MAX_SYMBOLS
+        value: "30"
+      - key: MAX_CLIENTS
+        value: "100"
+      - key: MAX_MESSAGES_PER_MINUTE
+        value: "120"
+      - key: ALLOWED_ORIGINS
+        value: "*"
+      - key: LOG_LEVEL
+        value: info
